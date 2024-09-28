@@ -3,11 +3,11 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\Space;
 use App\Models\User;
 use App\Models\Reservation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class ReservationTest extends TestCase
 {
     use RefreshDatabase;
@@ -18,7 +18,7 @@ class ReservationTest extends TestCase
         $user = User::factory()->create(['role' => 'user']);
         $space = Space::factory()->create();
 
-        $token = auth()->login($user);
+        $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->postJson('/api/reservations', [
@@ -39,7 +39,6 @@ class ReservationTest extends TestCase
         $user = User::factory()->create(['role' => 'user']);
         $space = Space::factory()->create();
 
-        // Crear la primera reserva
         Reservation::create([
             'user_id' => $user->id,
             'space_id' => $space->id,
@@ -49,18 +48,17 @@ class ReservationTest extends TestCase
             'end_time' => '11:00:00',
         ]);
 
-        $token = auth()->login($user);
+        $token = JWTAuth::fromUser($user);
 
-        // Intentar crear una segunda reserva con superposición de horarios
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->postJson('/api/reservations', [
                              'space_id' => $space->id,
                              'event_name' => 'Reserva Conflictiva',
                              'reservation_date' => '2024-10-10',
-                             'start_time' => '10:00:00', // Superposición con la primera reserva
+                             'start_time' => '10:00:00',
                              'end_time' => '12:00:00',
                          ]);
 
-        $response->assertStatus(409);  // Conflicto de superposición
+        $response->assertStatus(409);
     }
 }

@@ -27,23 +27,32 @@ class ReservationSeeder extends Seeder
 
         foreach ($users as $user) {
             foreach ($spaces as $space) {
-                Reservation::create([
-                    'user_id' => $user->id,
-                    'space_id' => $space->id,
-                    'event_name' => 'Evento de ' . $user->name,
-                    'reservation_date' => now()->addDays(rand(1, 30))->format('Y-m-d'),
-                    'start_time' => now()->setTime(rand(8, 18), 0, 0)->format('H:i:s'),
-                    'end_time' => now()->setTime(rand(8, 18), 0, 0)->addHours(2)->format('H:i:s'),
-                ]);
+                $reservationDate = now()->addDays(rand(1, 30))->format('Y-m-d');
+                $startTime = Carbon::createFromTime(rand(8, 16), 0, 0);
+                $endTime = $startTime->copy()->addHours(2);
 
                 Reservation::create([
                     'user_id' => $user->id,
                     'space_id' => $space->id,
-                    'event_name' => 'Evento de ' . $user->name . ' - 2',
-                    'reservation_date' => now()->addDays(rand(1, 30))->format('Y-m-d'),
-                    'start_time' => now()->setTime(rand(8, 18), 0, 0)->format('H:i:s'),
-                    'end_time' => now()->setTime(rand(8, 18), 0, 0)->addHours(2)->format('H:i:s'),
+                    'event_name' => 'Evento de ' . $user->name,
+                    'reservation_date' => $reservationDate,
+                    'start_time' => $startTime->format('H:i:s'),
+                    'end_time' => $endTime->format('H:i:s'),
                 ]);
+
+                $startTimeSecondEvent = $endTime->copy()->addHours(rand(1, 3));
+                $endTimeSecondEvent = $startTimeSecondEvent->copy()->addHours(2);
+
+                if ($startTimeSecondEvent->hour <= 18) {
+                    Reservation::create([
+                        'user_id' => $user->id,
+                        'space_id' => $space->id,
+                        'event_name' => 'Evento de ' . $user->name . ' - 2',
+                        'reservation_date' => $reservationDate,
+                        'start_time' => $startTimeSecondEvent->format('H:i:s'),
+                        'end_time' => $endTimeSecondEvent->format('H:i:s'),
+                    ]);
+                }
             }
         }
     }

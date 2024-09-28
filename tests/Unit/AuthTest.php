@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthTest extends TestCase
 {
@@ -46,7 +47,7 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $token = auth()->login($user);
+        $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->getJson('/api/me');

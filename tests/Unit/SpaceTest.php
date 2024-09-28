@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\Space;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,7 +17,7 @@ class SpaceTest extends TestCase
     {
         $admin = User::factory()->create(['role' => 'admin']);
 
-        $token = auth()->login($admin);
+        $token = JWTAuth::fromUser($admin);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->postJson('/api/spaces', [
@@ -36,7 +37,7 @@ class SpaceTest extends TestCase
         Space::factory()->count(3)->create();
 
         $user = User::factory()->create(['role' => 'user']);
-        $token = auth()->login($user);
+        $token = JWTAuth::fromUser($user);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->getJson('/api/spaces');
@@ -51,7 +52,7 @@ class SpaceTest extends TestCase
         $admin = User::factory()->create(['role' => 'admin']);
         $space = Space::factory()->create();
 
-        $token = auth()->login($admin);
+        $token = JWTAuth::fromUser($admin);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->putJson("/api/spaces/{$space->id}", [
@@ -68,7 +69,7 @@ class SpaceTest extends TestCase
         $admin = User::factory()->create(['role' => 'admin']);
         $space = Space::factory()->create();
 
-        $token = auth()->login($admin);
+        $token = JWTAuth::fromUser($admin);
 
         $response = $this->withHeader('Authorization', "Bearer $token")
                          ->deleteJson("/api/spaces/{$space->id}");

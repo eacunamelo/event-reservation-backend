@@ -13,6 +13,7 @@ class Reservation extends Model
         'user_id',
         'space_id',
         'event_name',
+        'reservation_date',
         'start_time',
         'end_time',
     ];
