@@ -40,12 +40,12 @@ cp .env.example .env
 
 Abre el archivo .env y edita las siguientes variables para configurar la conexión a la base de datos:
 
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=nombre_de_tu_base_de_datos
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_contraseña
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=nombre_de_tu_base_de_datos
+- DB_USERNAME=tu_usuario
+- DB_PASSWORD=tu_contraseña
 
 ### Genera la clave de aplicación de Laravel:
 
@@ -92,25 +92,26 @@ http://localhost:8000/api/documentation
 ## Endpoints Principales
 
 ### Autenticación
-POST /api/register: Registro de un nuevo usuario.
-POST /api/login: Inicio de sesión.
-GET /api/me: Obtener información del usuario autenticado.
+- POST /api/register: Registro de un nuevo usuario.
+- POST /api/login: Inicio de sesión.
+- GET /api/me: Obtener información del usuario autenticado.
 ### Espacios
-GET /api/spaces: Obtener la lista de todos los espacios disponibles.
-GET /api/spaces/{id}: Obtener información sobre un espacio específico.
-POST /api/spaces (Solo para administradores): Crear un nuevo espacio.
-PUT /api/spaces/{id} (Solo para administradores): Actualizar un espacio existente.
-DELETE /api/spaces/{id} (Solo para administradores): Eliminar un espacio.
+- GET /api/spaces: Obtener la lista de todos los espacios disponibles.
+- GET /api/spaces/{id}: Obtener información sobre un espacio específico.
+- POST /api/spaces (Solo para administradores): Crear un nuevo espacio.
+- PUT /api/spaces/{id} (Solo para administradores): Actualizar un espacio existente.
+- DELETE /api/spaces/{id} (Solo para administradores): Eliminar un espacio.
 ### Reservas
-GET /api/reservations: Obtener todas las reservas del usuario autenticado.
-POST /api/reservations: Crear una nueva reserva.
-GET /api/reservations/{id}: Obtener una reserva específica del usuario autenticado.
-PUT /api/reservations/{id}: Actualizar una reserva existente.
-DELETE /api/reservations/{id}: Eliminar una reserva existente.
+- GET /api/reservations: Obtener todas las reservas del usuario autenticado.
+- POST /api/reservations: Crear una nueva reserva.
+- GET /api/reservations/{id}: Obtener una reserva específica del usuario autenticado.
+- PUT /api/reservations/{id}: Actualizar una reserva existente.
+- DELETE /api/reservations/{id}: Eliminar una reserva existente.
 
 ### Ejemplos de Uso
 
 Crear un Nuevo Usuario
+```bash
 curl -X POST http://localhost:8000/api/register \
   -H "Content-Type: application/json" \
   -d '{
@@ -121,6 +122,7 @@ curl -X POST http://localhost:8000/api/register \
   }'
 
 Iniciar Sesión
+```bash
 curl -X POST http://localhost:8000/api/login \
   -H "Content-Type: application/json" \
   -d '{
@@ -129,6 +131,7 @@ curl -X POST http://localhost:8000/api/login \
   }'
 
 Crear una Reserva
+```bash
 curl -X POST http://localhost:8000/api/reservations \
   -H "Authorization: Bearer {token}" \
   -H "Content-Type: application/json" \
