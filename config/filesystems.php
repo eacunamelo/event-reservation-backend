@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'spaces' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/spaces'),
+            'url' => env('APP_URL').'/spaces',
+            'visibility' => 'public',
+        ],
     ],
 
     /*
@@ -71,6 +77,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('spaces') => storage_path('app/public/spaces'),
     ],
 
 ];

@@ -9,7 +9,7 @@ class ReservationController extends Controller
 {
     public function index()
     {
-        $reservations = auth()->user()->reservations;
+        $reservations = Reservation::with('space')->where('user_id', auth()->id())->get();
         return response()->json($reservations);
     }
 
@@ -45,7 +45,7 @@ class ReservationController extends Controller
 
     public function show($id)
     {
-        $reservation = auth()->user()->reservations()->find($id);
+        $reservation = auth()->user()->reservations()->with('space')->find($id);
 
         if (!$reservation) {
             return response()->json(['message' => 'Reservation not found'], 404);

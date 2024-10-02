@@ -20,22 +20,22 @@ use App\Http\Controllers\ReservationController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('spaces', [SpaceController::class, 'index']);
+Route::get('spaces/{id}', [SpaceController::class, 'show']);
 
 Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('/me', [AuthController::class, 'me']);
     
-    // Rutas para espacios
-    Route::get('spaces', [SpaceController::class, 'index']);
-    Route::post('spaces', [SpaceController::class, 'store']);
-    Route::get('spaces/{id}', [SpaceController::class, 'show']);
-    Route::put('spaces/{id}', [SpaceController::class, 'update']);
-    Route::delete('spaces/{id}', [SpaceController::class, 'destroy']);
-
-    // Rutas para reservas
     Route::get('reservations', [ReservationController::class, 'index']);
     Route::post('reservations', [ReservationController::class, 'store']);
     Route::get('reservations/{id}', [ReservationController::class, 'show']);
     Route::put('reservations/{id}', [ReservationController::class, 'update']);
     Route::delete('reservations/{id}', [ReservationController::class, 'destroy']);
+
+    Route::group(['middleware' => 'admin'], function() {
+        Route::post('spaces', [SpaceController::class, 'store']);    
+        Route::put('spaces/{id}', [SpaceController::class, 'update']);
+        Route::delete('spaces/{id}', [SpaceController::class, 'destroy']);
+    });
 });

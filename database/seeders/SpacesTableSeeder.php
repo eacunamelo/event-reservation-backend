@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Space;
 class SpacesTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Una sala pequeña para reuniones de 10 personas.',
             'capacity' => 10,
             'type' => 'meeting_room',
-            'image_url' => 'https://example.com/images/meeting_room_a.jpg',
+            'image_url' => Storage::disk('spaces')->url('club-house.jpg'),
         ]);
 
         Space::create([
@@ -26,7 +27,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Una sala pequeña para reuniones de 10 personas.',
             'capacity' => 10,
             'type' => 'meeting_room',
-            'image_url' => 'https://example.com/images/meeting_room_a.jpg',
+            'image_url' => Storage::disk('spaces')->url('meet.jpg'),
         ]);
 
         Space::create([
@@ -34,7 +35,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Sala equipada para conferencias de hasta 20 personas.',
             'capacity' => 20,
             'type' => 'conference_room',
-            'image_url' => 'https://example.com/images/conference_room_b.jpg',
+            'image_url' => Storage::disk('spaces')->url('corporate-meeting.jpg'),
         ]);
 
         Space::create([
@@ -42,7 +43,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Sala equipada para conferencias de hasta 30 personas.',
             'capacity' => 30,
             'type' => 'conference_room',
-            'image_url' => 'https://example.com/images/conference_room_b.jpg',
+            'image_url' => Storage::disk('spaces')->url('meeting-room.jpg'),
         ]);
 
         Space::create([
@@ -50,7 +51,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Un auditorio con capacidad para 20 personas.',
             'capacity' => 20,
             'type' => 'auditorium',
-            'image_url' => 'https://example.com/images/auditorium.jpg',
+            'image_url' => Storage::disk('spaces')->url('meeting-room-old-house.jpg'),
         ]);
 
         Space::create([
@@ -58,7 +59,7 @@ class SpacesTableSeeder extends Seeder
             'description' => 'Un auditorio con capacidad para 10 personas.',
             'capacity' => 10,
             'type' => 'auditorium',
-            'image_url' => 'https://example.com/images/auditorium.jpg',
+            'image_url' => Storage::disk('spaces')->url('living-room-old-house.jpg'),
         ]);
     }
 }
