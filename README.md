@@ -108,6 +108,22 @@ http://localhost:8000/api/documentation
 - PUT /api/reservations/{id}: Actualizar una reserva existente.
 - DELETE /api/reservations/{id}: Eliminar una reserva existente.
 
+## Ejecución de Tests
+
+### Para ejecutar las pruebas unitarias, utiliza el siguiente comando:
+php artisan test
+
+### Consideraciones Adicionales
+Tokens JWT: Todos los endpoints que requieren autenticación necesitan un token JWT. Este token se obtiene al hacer login y debe ser enviado en el encabezado Authorization de cada solicitud, precedido de la palabra "Bearer".
+
+Middleware de Admin: Las rutas para la creación, actualización y eliminación de espacios están protegidas por un middleware que garantiza que solo los usuarios con el rol de admin puedan acceder.
+
+Swagger: La documentación se puede regenerar si realizas cambios en los controladores usando:
+
+php artisan l5-swagger:generate
+
+Storage de Imágenes: Las imágenes subidas para los espacios se guardan en la carpeta storage/app/public/spaces. Asegúrate de correr php artisan storage:link para crear un enlace simbólico hacia el directorio público.
+
 ### Ejemplos de Uso
 
 Crear un Nuevo Usuario
@@ -142,22 +158,6 @@ curl -X POST http://localhost:8000/api/reservations \
     "start_time": "08:00:00",
     "end_time": "10:00:00"
   }'
-
-## Ejecución de Tests
-
-### Para ejecutar las pruebas unitarias, utiliza el siguiente comando:
-php artisan test
-
-### Consideraciones Adicionales
-Tokens JWT: Todos los endpoints que requieren autenticación necesitan un token JWT. Este token se obtiene al hacer login y debe ser enviado en el encabezado Authorization de cada solicitud, precedido de la palabra "Bearer".
-
-Middleware de Admin: Las rutas para la creación, actualización y eliminación de espacios están protegidas por un middleware que garantiza que solo los usuarios con el rol de admin puedan acceder.
-
-Swagger: La documentación se puede regenerar si realizas cambios en los controladores usando:
-
-php artisan l5-swagger:generate
-
-Storage de Imágenes: Las imágenes subidas para los espacios se guardan en la carpeta storage/app/public/spaces. Asegúrate de correr php artisan storage:link para crear un enlace simbólico hacia el directorio público.
 
 
 
