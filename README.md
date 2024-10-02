@@ -10,14 +10,6 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - Node.js >= 14 (solo si planeas trabajar con el frontend)
 - Git (opcional)
 
-# Instalación
-
-## Clonación del Proyecto
-
-Clona este repositorio en tu máquina local usando Git:
-
-git clone https://github.com/tuusuario/event-reservation-backend.git
-
 ## Dirígete al directorio del proyecto:
 
 cd event-reservation-backend
